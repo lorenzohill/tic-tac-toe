@@ -17,7 +17,7 @@ body{
 }
 
 .gamesquare{
-  background-color: antiquewhite;
+  background-color: papayawhip;
   width: 5rem;
   height: 5rem;
   display: flex;
@@ -28,7 +28,7 @@ body{
 }
 
 .gamesquare:hover{
-  background-color: rgb(224, 164, 85);
+  background-color: rgb(193, 180, 161);
 }
 
 .play{
@@ -40,6 +40,7 @@ body{
 }
 
 .gameboard{
+  background-color: steelblue;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
