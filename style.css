@@ -17,7 +17,7 @@ body{
 }
 
 .gamesquare{
-  background-color: papayawhip;
+  background-color:papayawhip;
   width: 5rem;
   height: 5rem;
   display: flex;
@@ -40,7 +40,7 @@ body{
 }
 
 .gameboard{
-  background-color: steelblue;
+  background-color:steelblue;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
