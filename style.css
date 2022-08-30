@@ -20,6 +20,11 @@ body{
   background-color: antiquewhite;
   width: 5rem;
   height: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 48pt;
 }
 
 .gamesquare:hover{

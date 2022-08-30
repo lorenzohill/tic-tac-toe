@@ -10,6 +10,9 @@ var turn = "player"
 var player = "X"
 var opp = "O"
 
+var turnNum = 0
+var gameOver = false
+
 playButton.addEventListener("click", function(){play()})
 optionsButton.addEventListener("click", function(){options()})
 
@@ -40,6 +43,7 @@ function button(index) {
   if (checkValid(index) == false) {
     return
   }else{
+    turnNum++ 
     if (turn == "player") {
       let space = document.getElementById(index)
       space.innerHTML = "X"
@@ -66,6 +70,7 @@ function checkValid(index) {
   var index = document.getElementById(index).innerHTML
   if (index == "X" || index == "O") {
   console.log("ERROR")
+  alert("You can't place it there!")
   return false
     
 }
@@ -74,24 +79,123 @@ function checkValid(index) {
 function checkWin(turn) {
   if (turn == "player") {
     console.log(turn + " Win check")
-    checkDiags(turn)
+    console.log(gameboardSpaces[0].id)
+    checkRows("X")
+    checkColumns("X")
+    checkDiags("X")
+    if (gameOver == true){
+      processWinner("Player 1")
+    } else if (gameOver == false){
+      checkCat()
+    }
   } else{
     if (turn == "opp") {
-      console.log("Now for this win check")
+      checkRows("O")
+      checkColumns("O")
+      checkDiags("O")
+      if (gameOver == true){
+        processWinner("Player 2")
+      }else if (gameOver == false){
+        checkCat()
+      }
     }
   }
 
   }
 
-  function checkRows(turn) {
-
-    
+  function checkRows(check) {
+    if (gameboardSpaces[0].innerHTML == check){
+      if (gameboardSpaces[1].innerHTML == check) {
+        if (gameboardSpaces[2].innerHTML == check) {
+          gameOver = true
+        }
+      }
+    }
+    if (gameboardSpaces[3].innerHTML == check){
+      if (gameboardSpaces[4].innerHTML == check) {
+        if (gameboardSpaces[5].innerHTML == check) {
+          gameOver = true
+        }
+      }
+    }
+    if (gameboardSpaces[6].innerHTML == check){
+      if (gameboardSpaces[7].innerHTML == check) {
+        if (gameboardSpaces[8].innerHTML == check) {
+          gameOver = true
+        }
+      }
+    }
   }
 
-  function checkColumns(turn) {
-
+  function checkColumns(check) {
+    if (gameboardSpaces[0].innerHTML == check){
+      if (gameboardSpaces[3].innerHTML == check) {
+        if (gameboardSpaces[6].innerHTML == check) {
+          gameOver = true
+        }
+      }
+    } 
+     if (gameboardSpaces[1].innerHTML == check){
+      if (gameboardSpaces[4].innerHTML == check) {
+        if (gameboardSpaces[7].innerHTML == check) {
+          gameOver = true
+        }
+      }
+    } 
+     if (gameboardSpaces[2].innerHTML == check){
+      if (gameboardSpaces[5].innerHTML == check) {
+        if (gameboardSpaces[8].innerHTML == check) {
+          gameOver = true
+        }
+      }
+    }
   }
   
-  function checkDiags(turn) {
-
+  function checkDiags(check) {
+    if (gameboardSpaces[0].innerHTML == check){
+      if (gameboardSpaces[4].innerHTML == check) {
+        if (gameboardSpaces[8].innerHTML == check) {
+          gameOver = true
+        }
+      }
+    }
+    if (gameboardSpaces[2].innerHTML == check){
+      if (gameboardSpaces[4].innerHTML == check) {
+        if (gameboardSpaces[6].innerHTML == check) {
+          gameOver = true
+        }
+      }
+    }
   }
+
+  function checkCat() {
+    if (gameOver == false && turnNum == 9){
+      console.log("Tie Game")
+      processWinner("Nobody")
+      gameOver = true
+    }
+  }
+
+  function processWinner(player) {
+    let gameSpaces = document.querySelectorAll(".gamesquare")
+    gameSpaces.forEach(element => {
+      var new_element = element.cloneNode(true);
+      element.parentNode.replaceChild(new_element, element);
+    });
+    let winner = document.createElement("h1")
+    winner.id = "winner"
+    winner.innerHTML = player + " has won the game"
+    document.body.querySelector(".main").appendChild(winner)
+    
+    }
+function reset() {
+  let gameSpaces = document.querySelectorAll(".gamesquare")
+    gameSpaces.forEach(element => {
+      element.remove()
+    });
+    document.querySelector("#winner").remove()
+    gameOver = false
+    turn = "player"
+    turnNum = 0
+    play()
+}
