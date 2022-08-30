@@ -13,11 +13,16 @@ var opp = "O"
 var turnNum = 0
 var gameOver = false
 
+var playerOne
+var playerTwo
+
 playButton.addEventListener("click", function(){play()})
 optionsButton.addEventListener("click", function(){options()})
 
 function play() {
   console.log("Play button Hit.")
+  playerOne = prompt("Who is player number one?")
+  playerTwo = prompt("Who is player number two?")
   playButton.classList.add("hide")
   turn = "player"
   for (let index = 0; index < 9; index++) {
@@ -84,7 +89,7 @@ function checkWin(turn) {
     checkColumns("X")
     checkDiags("X")
     if (gameOver == true){
-      processWinner("Player 1")
+      processWinner(playerOne)
     } else if (gameOver == false){
       checkCat()
     }
@@ -94,7 +99,7 @@ function checkWin(turn) {
       checkColumns("O")
       checkDiags("O")
       if (gameOver == true){
-        processWinner("Player 2")
+        processWinner(playerTwo)
       }else if (gameOver == false){
         checkCat()
       }
@@ -186,15 +191,22 @@ function checkWin(turn) {
     winner.id = "winner"
     winner.innerHTML = player + " has won the game"
     document.body.querySelector(".main").appendChild(winner)
-    
+    let reset = document.createElement("button")
+    reset.innerHTML = "Reset"
+    reset.classList.add("reset")
+    reset.addEventListener("click", function(){startOver()})
+    document.body.appendChild(reset)
+
     }
-function reset() {
+function startOver() {
   let gameSpaces = document.querySelectorAll(".gamesquare")
     gameSpaces.forEach(element => {
       element.remove()
     });
     document.querySelector("#winner").remove()
+    document.querySelector(".reset").remove()
     gameOver = false
+    gameboardSpaces = []
     turn = "player"
     turnNum = 0
     play()
